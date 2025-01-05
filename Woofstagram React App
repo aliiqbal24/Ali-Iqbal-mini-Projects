@@ -1,0 +1,113 @@
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, ScrollView, Alert } from 'react-native';
+
+// Custom reusable component
+const InputField = ({ label, placeholder, value, onChangeText, secureTextEntry }) => (
+  <View style={styles.inputContainer}>
+    <Text style={styles.label}>{label}</Text>
+    <TextInput 
+      style={styles.input} 
+      placeholder={placeholder} 
+      value={value} 
+      onChangeText={onChangeText} 
+      secureTextEntry={secureTextEntry} 
+    />
+  </View>
+);
+
+function App() {
+  // State variables for each input
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [petsName, setPetsName] = useState('');
+  const [petsDOB, setPetsDOB] = useState('');
+  const [petsBreed, setPetsBreed] = useState('');
+  const [favToy, setFavToy] = useState('');
+
+  // Function to check password match
+  const handlePasswordSubmit = () => {
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match!');
+    } else {
+      Alert.alert('Success', 'Passwords match!');
+    }
+  };
+
+  return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <InputField 
+        label="Email" 
+        placeholder="Enter your email" 
+        value={email} 
+        onChangeText={setEmail} 
+      />
+      <InputField 
+        label="Password" 
+        placeholder="Enter your password" 
+        value={password} 
+        onChangeText={setPassword} 
+        secureTextEntry={true} 
+      />
+      <InputField 
+        label="Confirm Password" 
+        placeholder="Re-enter your password" 
+        value={confirmPassword} 
+        onChangeText={setConfirmPassword} 
+        secureTextEntry={true} 
+      />
+      <InputField 
+        label="Pet's Name" 
+        placeholder="Enter your pet's name" 
+        value={petsName} 
+        onChangeText={setPetsName} 
+      />
+      <InputField 
+        label="Pet's Date of Birth" 
+        placeholder="Enter your pet's date of birth" 
+        value={petsDOB} 
+        onChangeText={setPetsDOB} 
+      />
+      <InputField 
+        label="Pet's Breed" 
+        placeholder="Enter your pet's breed" 
+        value={petsBreed} 
+        onChangeText={setPetsBreed} 
+      />
+      <InputField 
+        label="Favorite Toy" 
+        placeholder="Enter your pet's favorite toy" 
+        value={favToy} 
+        onChangeText={setFavToy} 
+      />
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1, // Ensures ScrollView content takes up full height
+    padding: 16, // Padding for the main container
+    backgroundColor: '#ecf0f1',
+  },
+  inputContainer: {
+    marginBottom: 20, // Space between input fields
+  },
+  label: {
+    fontSize: 18, // Larger, readable text
+    marginBottom: 8, // Space between label and input
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 8, // Padding inside the input
+    fontSize: 18, // Larger text for readability
+  },
+});
+
+export default App;
